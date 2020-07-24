@@ -123,4 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ea8e2e1f9fde343a1f4108384d0e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletLifeTime: 5
+  BulletLifeTime: 3
+  particalEffect: {fileID: 100002, guid: 3b1513bcb86426b4795879be6a128ed7, type: 3}
