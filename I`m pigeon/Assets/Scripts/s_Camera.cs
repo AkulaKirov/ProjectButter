@@ -11,18 +11,23 @@ public class s_Camera : MonoBehaviour
     public float rotateSpeed = 5.0f;    //摄像机旋转速度
     public float radius = 5;            //环绕半径
     public float maxAngle = 60;         //最大仰角
-    public float minAngle = -60;        //最大俯角 
+    public float minAngle = -45;        //最大俯角 
     public bool isAiming = false;       //是否在瞄准
     public float axisX = 0f;            //鼠标输入轴X
     public float axisY = 0f;            //鼠标输入轴Y
     public float maxFOV = 40;           //最大缩放视角
     public float minFOV = 20;           //最小缩放视角
-    public float aimVelocity = 0f;      
+    public float aimVelocity = 0f;
+
+    public CursorLockMode lockMode;
 
     void Start()
     {
         cam = this.GetComponent<Camera>();
         diffVector = -Vector3.forward;
+        lockMode = CursorLockMode.Locked;
+        Cursor.lockState = lockMode;
+        Cursor.visible = false;
     }
 
     void LateUpdate()
@@ -87,8 +92,10 @@ public class s_Camera : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, (cam.transform.position - target.position).magnitude))
         {
+            if (hit.collider.gameObject.tag == "Player") return;
+            Debug.Log("Camera Collied");
             Vector3 v = Vector3.zero;
-            cam.transform.position = Vector3.SmoothDamp(cam.transform.position, (hit.point - (cam.transform.position - target.position).normalized * 0.25f), ref v, 0.1f);
+            cam.transform.position = Vector3.SmoothDamp(cam.transform.position, (hit.point - (cam.transform.position - target.position).normalized * 1f), ref v, 0f);
         }
     }
 

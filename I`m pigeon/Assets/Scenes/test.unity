@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 611706095}
   - component: {fileID: 611706094}
   - component: {fileID: 611706097}
+  - component: {fileID: 611706098}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -504,12 +505,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 611706095}
   target: {fileID: 1532688274}
-  offset: {x: 1.5, y: 0, z: 0}
+  offset: {x: 1.5, y: 0.75, z: 0}
   diffVector: {x: 0, y: 0, z: 0}
   rotate: {x: 0, y: 0}
   rotateSpeed: 5
   radius: 5
-  maxAngle: 60
+  maxAngle: 30
   minAngle: -60
   isAiming: 0
   axisX: 0
@@ -517,6 +518,24 @@ MonoBehaviour:
   maxFOV: 40
   minFOV: 20
   aimVelocity: 0
+  lockMode: 1
+--- !u!114 &611706098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611706093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 7ba2b06fb32e5274aad88925a5b8d3f5, type: 2}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &1021365198
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,8 +841,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532688270}
   serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: 5
+  m_Mass: 100
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -843,12 +862,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  jumpForce: 2
+  jumpForce: 1
   rotateSpeed: 5
   direction: {x: 0, y: 0, z: 0}
   axisVertical: 0
   axisHorizontal: 0
   cam: {fileID: 611706096}
+  camScript: {fileID: 611706097}
 --- !u!114 &1532688277
 MonoBehaviour:
   m_ObjectHideFlags: 0
