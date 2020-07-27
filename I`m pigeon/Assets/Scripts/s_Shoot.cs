@@ -7,6 +7,7 @@ public class s_Shoot : MonoBehaviour
     public GameObject Bullet;
     public Transform ShootPoint;
     public s_Camera camScript;
+    public s_FPSCam fpsCamScript;
     public bool isShooting = false;
     public bool isAmmoLeft = false;
     public bool isReloading = false;
@@ -58,7 +59,7 @@ public class s_Shoot : MonoBehaviour
             Debug.DrawRay(ShootPoint.position, dir, Color.red);
             GameObject bullet = Instantiate(Bullet);
             bullet.transform.position = ShootPoint.transform.position;
-            bullet.GetComponent<Rigidbody>().velocity = (dir * 100);
+            bullet.GetComponent<Rigidbody>().velocity = (dir * 1000);
 
             Debug.Log("Bullet Shooted");
             fireCoolDown = fireRate;

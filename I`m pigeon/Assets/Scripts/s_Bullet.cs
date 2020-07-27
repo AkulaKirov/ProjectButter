@@ -36,6 +36,11 @@ public class s_Bullet : MonoBehaviour
         {
             return;
         }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Bullet Hit Enemy");
+            collision.gameObject.GetComponent<s_Enemy>().Hurt(10);
+        }
         Debug.Log("Bullet Hit");
         Vector3 normal = collision.contacts[0].normal;
         Debug.DrawRay(collision.contacts[0].point, normal, Color.red, 10f);
