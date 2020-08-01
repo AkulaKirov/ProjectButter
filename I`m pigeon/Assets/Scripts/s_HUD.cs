@@ -7,7 +7,6 @@ public class s_HUD : MonoBehaviour
 {
     public s_Shoot shootScript;
     public s_Camera camScript;
-    public s_FPSCam fpsCamScript;
     public Text magHUD;
     public Image realHitPointHUD;
 
@@ -42,7 +41,7 @@ public class s_HUD : MonoBehaviour
         Vector3 p = camScript.GetRealHitPoint();
         Vector3 p2 = camScript.cam.WorldToScreenPoint(p);
         p2.z = 10;
-        Debug.Log(p2);
+        //Debug.Log(p2);
         realHitPointHUD.transform.position = p2;
     }
 }

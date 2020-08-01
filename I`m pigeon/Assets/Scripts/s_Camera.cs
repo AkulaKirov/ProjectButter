@@ -123,6 +123,7 @@ public class s_Camera : MonoBehaviour
         Vector3 pos = Vector3.zero;
         Vector3 aimPoint = GetAimPoint();
         Ray ray = new Ray(shootScript.ShootPoint.position, aimPoint - shootScript.ShootPoint.position);
+        Debug.DrawRay(cam.transform.position, ray.direction);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, (aimPoint - shootScript.ShootPoint.position).magnitude) && hit.collider.gameObject.tag != "Bullet")
         {

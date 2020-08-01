@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class s_Shoot : MonoBehaviour
 {
+
     public GameObject Bullet;
     public Transform ShootPoint;
     public s_Camera camScript;
-    public s_FPSCam fpsCamScript;
     public bool isShooting = false;
     public bool isAmmoLeft = false;
     public bool isReloading = false;
@@ -22,9 +22,14 @@ public class s_Shoot : MonoBehaviour
     public int maxAmmo = 30;
     public int ptrAmmo = 0;
 
+    private Animator anim;
+    public AudioSource audio;
+    public AudioPlayer player;
+
+
     void Start()
     {
-        
+        anim = this.GetComponent<Animator>();
     }
 
     void Update()
@@ -60,6 +65,7 @@ public class s_Shoot : MonoBehaviour
             GameObject bullet = Instantiate(Bullet);
             bullet.transform.position = ShootPoint.transform.position;
             bullet.GetComponent<Rigidbody>().velocity = (dir * 1000);
+            player.Play(1);
 
             Debug.Log("Bullet Shooted");
             fireCoolDown = fireRate;
@@ -74,10 +80,12 @@ public class s_Shoot : MonoBehaviour
 
     void Reload()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R) && isReloading == false)
         {
             isReloading = true;
             ptrReloadTime = reloadTime;
+            anim.SetTrigger("OnReload");
+            player.Play(2);
         }
         if (isReloading == true && ptrReloadTime <= 0f)
         {
@@ -96,11 +104,13 @@ public class s_Shoot : MonoBehaviour
 
             isReloading = false;
             isAmmoLeft = true;
+            player.Play(3);
         }
         else if (ptrReloadTime > 0f)
         {
             ptrReloadTime -= Time.deltaTime;
         }
+
     }
 
     void CoolDown()

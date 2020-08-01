@@ -18,11 +18,13 @@ public class s_Move : MonoBehaviour
     private Rigidbody rigidBody;
     public s_Camera camScript;
     public s_Shoot shootScript;
-    
+
+    private Animator anim;
 
     void Start()
     {
         rigidBody = this.GetComponent<Rigidbody>();
+        anim = this.GetComponent<Animator>();
     }
 
     void LateUpdate()
@@ -32,15 +34,32 @@ public class s_Move : MonoBehaviour
 
         if (axisHorizontal != 0.0 || axisVertical != 0.0 || Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
         {
+
+            
             //if (axisHorizontal != 0.0 || axisVertical != 0.0)
             {
                 direction.Set(axisHorizontal, 0, axisVertical);
+                direction.Normalize();
             }
 
+            if (direction.magnitude != 0f)
+            {
+                anim.SetFloat("Walk", 1f);
+            }
+
+            anim.SetFloat("dir.x", direction.x);
+            anim.SetFloat("dir.y", direction.z);
+            Debug.Log(anim.GetFloat("dir.x") + "  " + anim.GetFloat("dir.y"));
             direction.Normalize();
             Turn();
             Jump();
             Move();
+        }
+        else
+        {
+            anim.SetFloat("Walk", 0f);
+            anim.SetFloat("dir.x", 0f);
+            anim.SetFloat("dir.y", 0f);
         }
 
     }
@@ -59,9 +78,13 @@ public class s_Move : MonoBehaviour
 
         if (camScript.isAiming == true || Input.GetKey(KeyCode.Mouse0))
         {
+            angle = Vector3.SignedAngle(Vector3.forward, (camScript.GetAimPoint() - this.transform.position), Vector3.up);
             //Debug.Log("angle:" + angle);
             Quaternion q = Quaternion.Euler(0, angle, 0);
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, q, 0.1f);
+
+            anim.SetLayerWeight(1, 1f);
+            anim.SetLayerWeight(2, 0f);
             return;
         }
 
@@ -69,6 +92,9 @@ public class s_Move : MonoBehaviour
         //Debug.Log("angle2:" + angle2);
         Quaternion q2 = Quaternion.Euler(0, angle2, 0);
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, q2, 0.1f);
+
+        anim.SetLayerWeight(1, 0f);
+        anim.SetLayerWeight(2, 1f);
 
         Debug.DrawRay(transform.position, direction, Color.green);
         Debug.DrawRay(cam.position, camForward, Color.green);
@@ -99,7 +125,9 @@ public class s_Move : MonoBehaviour
         }
         else
         {
+            //direction.y -= 100f;
             isJumping = false;           
         }
     }
 }
+
