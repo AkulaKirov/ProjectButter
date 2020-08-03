@@ -74,6 +74,11 @@ public class WeaponBase : MonoBehaviour
     //射出点(部分武器没有这个东西)
     public Transform ShootPoint;
 
+    public float Damage
+    {
+        set => Damage = value;
+    }
+
     //攻击的方法(子类重写)
     public void Attack()
     {

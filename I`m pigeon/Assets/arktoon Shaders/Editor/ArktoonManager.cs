@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.IO;
-using UnityEditor.Callbacks;
-using System.Linq;
-using System;
-using System.Text.RegularExpressions;
 
 namespace ArktoonShaders
 {
